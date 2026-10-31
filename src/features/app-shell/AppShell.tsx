@@ -32,7 +32,7 @@ export function AppShell({ children }: AppShellProps) {
             <NavLink
               key={item.to}
               to={item.to}
-              end={item.to === '/dashboard'}
+              end={item.to === '/workspace?page=overview'}
               className={({ isActive }) => (isActive ? 'nav-item active' : 'nav-item')}
               onClick={(event) => {
                 if (item.to === '/login') {

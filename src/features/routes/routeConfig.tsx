@@ -1,79 +1,21 @@
-import { WorkspaceSearchRedirect } from "./WorkspaceSearchRedirect"
-import { AvailabilityPage } from '../app-shell/WorkspacePages'
-import type { ReactNode } from 'react'
 import App from '../../App'
 import { Navigate } from 'react-router-dom'
-import { AppShell } from '../app-shell/AppShell'
-import { ArtifactManagement } from '../artifacts/ArtifactManagement'
 import { LoginPage } from '../auth/LoginPage'
-import { ProtectedRoute } from '../auth/ProtectedRoute'
-import { ProfilePage } from '../profile/ProfilePage'
-import { ProjectWorkspacePage } from '../projects/ProjectWorkspace'
-import { WorkspaceCommandCenter } from '../step4/WorkspaceCommandCenter'
 
-type RouteConfigEntry = {
-  path: string
-  element: ReactNode
-}
-
-function withShell(children: ReactNode): ReactNode {
-  return (
-    <ProtectedRoute>
-      <AppShell>{children}</AppShell>
-    </ProtectedRoute>
-  )
-}
-
-export const routeConfig: RouteConfigEntry[] = [
+export const routeConfig = [
   { path: '/workspace', element: <App /> },
   { path: '/login', element: <LoginPage /> },
-  {
-    path: '/',
-    element: withShell(<Navigate to="/dashboard" replace />),
-  },
-  {
-    path: '/dashboard',
-    element: withShell(<WorkspaceCommandCenter initialTab="overview" />),
-  },
-  {
-    path: '/projects',
-    element: withShell(<ProjectWorkspacePage />),
-  },
-  {
-    path: '/chat',
-    element: <App />,
-  },
-  {
-    path: '/artifacts',
-    element: withShell(<ArtifactManagement />),
-  },
-  {
-    path: '/search',
-    element: <WorkspaceSearchRedirect />,
-  },
-  {
-    path: '/assistant',
-    element: withShell(<AvailabilityPage title="AI Assistant" />),
-  },
-  {
-    path: '/analytics',
-    element: withShell(<AvailabilityPage title="Analytics" />),
-  },
-  {
-    path: '/knowledge-graph',
-    element: withShell(<AvailabilityPage title="Knowledge Graph" />),
-  },
-  {
-    path: '/notifications',
-    element: <Navigate to="/workspace?page=inbox" replace />,
-  },
-  {
-    path: '/settings',
-    element: <Navigate to="/workspace?page=settings" replace />,
-  },
-  {
-    path: '/profile',
-    element: withShell(<ProfilePage />),
-  },
-  { path: '*', element: withShell(<AvailabilityPage title="Page unavailable" />) },
+  { path: '/', element: <Navigate to="/workspace?page=overview" replace /> },
+  { path: '/dashboard', element: <Navigate to="/workspace?page=overview" replace /> },
+  { path: '/projects', element: <Navigate to="/workspace?page=project" replace /> },
+  { path: '/chat', element: <Navigate to="/workspace?page=chat" replace /> },
+  { path: '/artifacts', element: <Navigate to="/workspace?page=artifact" replace /> },
+  { path: '/notifications', element: <Navigate to="/workspace?page=inbox" replace /> },
+  { path: '/settings', element: <Navigate to="/workspace?page=settings" replace /> },
+  { path: '/profile', element: <Navigate to="/workspace?page=settings" replace /> },
+  { path: '/assistant', element: <Navigate to="/workspace?page=chat" replace /> },
+  { path: '/analytics', element: <Navigate to="/workspace?page=overview" replace /> },
+  { path: '/knowledge-graph', element: <Navigate to="/workspace?page=project" replace /> },
+  { path: '/search', element: <Navigate to="/workspace?page=overview" replace /> },
+  { path: '*', element: <Navigate to="/workspace?page=overview" replace /> },
 ]
